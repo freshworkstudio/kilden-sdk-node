@@ -1,0 +1,14 @@
+name: Feature request
+description: Propose new behavior (heads-up — surface changes go through kilden-sdk-spec)
+labels: [enhancement]
+body:
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: |
+        Changes to the public surface or observable behavior land in
+        https://github.com/freshworkstudio/kilden-sdk-spec first, then in the
+        five SDKs. Node-only improvements (typing, performance, docs) belong here.
+    validations:
+      required: true
