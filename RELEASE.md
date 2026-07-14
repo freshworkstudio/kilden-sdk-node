@@ -1,27 +1,16 @@
 # Releasing
 
-Two paths; both need an npm account with publish rights in the `kilden-io`
-org (2FA required).
+`release.yml` publishes on `v*` tags via **OIDC trusted publishing** — no
+token secret. One-time setup on npmjs.com (package Settings → Trusted
+Publisher): repository `kilden-sdk-node`, workflow `release.yml`.
 
-## Manual (first release)
+## Cutting a release
 
-```sh
-npm run check
-npm publish --access public --tag alpha --otp=<code>   # prereleases
-git tag v0.1.0-alpha.1 && git push origin v0.1.0-alpha.1
-```
+1. Bump `version` in `package.json` (and `src/version.ts`).
+2. Update `CHANGELOG.md`.
+3. `git tag v0.1.0-alpha.2 && git push origin v0.1.0-alpha.2`.
 
-`npm publish --dry-run` is green as of 0.1.0-alpha.1; the only missing piece
-is the 2FA one-time password.
+Prerelease tags (`-alpha`/`-beta`/`-rc`) publish under the npm dist-tag
+`alpha`; anything else under `latest`.
 
-## CI (tags)
-
-`release.yml` publishes on `v*` tags using the `NPM_TOKEN` repository secret
-(an automation token, which skips the OTP). Set the secret once:
-
-```sh
-gh secret set NPM_TOKEN --repo freshworkstudio/kilden-sdk-node
-```
-
-Then a plain `git push origin v0.1.0` releases: prerelease tags
-(`-alpha/-beta/-rc`) get the npm dist-tag `alpha`, everything else `latest`.
+Manual fallback: `npm publish --access public --tag alpha --otp=<code>`.
