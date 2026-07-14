@@ -28,7 +28,7 @@ export class FetchTransport implements Transport {
       const response = await fetch(url, {
         method: "POST",
         headers,
-        body: body as BodyInit,
+        body,
         signal: AbortSignal.timeout(timeoutMs),
       });
       const text = await response.text();
