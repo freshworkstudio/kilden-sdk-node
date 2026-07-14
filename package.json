@@ -1,0 +1,55 @@
+{
+  "name": "@kilden-io/node",
+  "version": "0.1.0-alpha.1",
+  "description": "Kilden Node.js SDK — server-side events, identity signing and feature flags. Zero dependencies.",
+  "keywords": [
+    "kilden",
+    "analytics",
+    "cdp",
+    "events",
+    "feature-flags",
+    "server"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freshworkstudio/kilden-sdk-node.git"
+  },
+  "homepage": "https://github.com/freshworkstudio/kilden-sdk-node#readme",
+  "bugs": "https://github.com/freshworkstudio/kilden-sdk-node/issues",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --target node18",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run --exclude 'test/integration/**'",
+    "check": "npm run typecheck && npm run test",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}
