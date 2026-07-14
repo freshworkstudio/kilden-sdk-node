@@ -6,24 +6,11 @@ on:
   pull_request:
 
 jobs:
-  unit:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node: [18, 20, 22]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node }}
-          cache: npm
-      - run: npm ci
-      - run: npx tsc --noEmit
-      - run: npx vitest run --exclude 'test/integration/**' test
-      - run: npm run build
-
-  spec-vectors:
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
@@ -32,7 +19,7 @@ jobs:
           path: spec
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: ${{ matrix.node }}
           cache: npm
       - uses: actions/setup-go@v5
         with:
@@ -42,3 +29,4 @@ jobs:
       - run: npm run check
         env:
           KILDEN_SPEC_DIR: ${{ github.workspace }}/spec
+      - run: npm run build
