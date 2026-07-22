@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: kilden-runners
     strategy:
       matrix:
         node: [18, 20, 22]
